@@ -1,30 +1,38 @@
-let showPrevBtn = document.getElementById('show-prev-image');
-let showNextBtn = document.getElementById('show-next-image');
-let currentImage = document.querySelector('.main-photo')
-let listOfImages = ['img/first.jpeg', 'img/second.jpg', 'img/third.jpg'];
-var currentIndex = 0;
+var slider1 = {
+    listOfImages: [],
+    showPrevBtn: document.getElementById('show-prev-image'),
+    showNextBtn: document.getElementById('show-next-image'),
+    currentImage: document.querySelector('.main-photo'),
+    currentIndex: 0,
 
-showPrevBtn.addEventListener('click', onShowPrevBtnClick, (event) => {
-    event.preventDefault();});
-showNextBtn.addEventListener('click', onShowNextBtnClick, (event) => {
-    event.preventDefault();});
+    init: function () {
+        let thisIsSlider = this;
+        this.showPrevBtn.addEventListener('click', function(event) {thisIsSlider.onShowPrevBtnClick(event)} , (event) => {event.preventDefault();});
+        this.showNextBtn.addEventListener('click', function(event) {thisIsSlider.onShowNextBtnClick(event)}, (event) => {event.preventDefault();});
+        this.listOfImages.push('img/first.jpeg');
+        this.listOfImages.push('img/second.jpg');
+        this.listOfImages.push('img/third.jpg');
+    },
 
-function onShowPrevBtnClick() {
-    if (currentIndex === 0) {
-        currentIndex = listOfImages.length;
-    }
-    currentIndex -= 1;
-    changeImage(listOfImages);
+    onShowPrevBtnClick: function(event) {
+        if (this.currentIndex === 0) {
+            this.currentIndex = this.listOfImages.length;
+        }
+        this.currentIndex -= 1;
+        this.changeImage(this.listOfImages);
+    },
+
+    onShowNextBtnClick: function(event) {
+        this.currentIndex += 1;
+        if (this.currentIndex === this.listOfImages.length) {
+            this.currentIndex = 0;
+        }
+        this.changeImage(this.listOfImages);
+    },
+
+    changeImage: function(listOfImages) {
+        this.currentImage.src = listOfImages[this.currentIndex]
+    },
 }
 
-function onShowNextBtnClick() {
-    currentIndex += 1;
-    if (currentIndex === listOfImages.length) {
-        currentIndex = 0;
-    }
-    changeImage(listOfImages);
-}
-
-function changeImage(listOfImages) {
-    currentImage.src = listOfImages[currentIndex]
-}
+slider1.init();
