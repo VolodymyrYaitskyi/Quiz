@@ -1,0 +1,148 @@
+{
+    "questions": [
+        {
+            "rootQuestion": "ШАГ 1 Выберите виды изысканий",
+            "answers": {
+                "geological": {"label": "Геологические изыскания", "type": "radio", "name": "rootanswer"},
+                "geodesics": {"label":"Геодезические изыскания", "type": "radio", "name": "rootanswer"},
+                "environmental": {"label":"Экологические изыскания","type": "radio", "name": "rootanswer"}
+            },
+            "subQuestions": {
+                "geological": {
+                    "questions": {
+                        "whatArea": "Площадь проектируемого строения (пятно застройки), м2:",
+                        "floorsCount": "Этажность:"
+                    },
+                    "answers": {
+                        "whatArea": {
+                            "type": "number",
+                            "data": {
+                                "min": 0,
+                                "max": 400,
+                                "step": 20,
+                                "default": 0
+                            }
+                        },
+                        "floorsCount": {
+                            "type": "list",
+                            "data" : {
+                                "onetwo": {
+                                    "label": "1 - 2 этажа",
+                                    "type": "radio",
+                                    "name": "floorsCount"
+                                },
+                                "three": {
+                                    "label": "3 этажа",
+                                    "type": "radio",
+                                    "name": "floorsCount"
+                                },
+                                "four": {
+                                    "label": "4 этажа",
+                                    "type": "radio",
+                                    "name": "floorsCount"
+                                },
+                                "zero": {
+                                    "label": "+ Подвал",
+                                    "type": "checkbox",
+                                    "name": "floorsCount"
+                                }
+                            }
+                        }
+                    }
+                },
+                "geodesics": {
+                    "questions": {
+                        "whatArea": "Площадь участка изысканий (га):",
+                        "locationType": "Тип местности:",
+                        "additionalServices": "Дополнительные услуги:"
+                    },
+                    "answers": {
+                        "whatArea": {
+                            "type": "number",
+                            "data": {
+                                "min": 0,
+                                "max": 1000,
+                                "step": 10,
+                                "default": 0
+                                }
+                        },
+                        "locationType": {
+                            "type": "list",
+                            "data": {
+                                "private": {
+                                    "label": "Частный приусадебный участок",
+                                    "type": "radio",
+                                    "name": "locationType"
+                                },
+                                "field": {
+                                    "label": "Поле",
+                                    "type": "radio",
+                                    "name": "locationType"
+                                },
+                                "city": {
+                                    "label": "Городская застройка",
+                                    "type": "radio",
+                                    "name": "locationType"
+                                },
+                                "industrial": {
+                                    "label": "Промзона",
+                                    "type": "radio",
+                                    "name": "locationType"
+                                }
+                            }
+                        },
+                        "additionalServices": {
+                            "type": "list",
+                            "data": {
+                                "techreview": {
+                                    "label": "Разработка технического отчета",
+                                    "type": "checkbox",
+                                    "name": "additional"
+                                },
+                                "agreedment": {
+                                    "label": "Согласование топосъемки с эксплуатирующими организациями",
+                                    "type": "checkbox",
+                                    "name": "additional"
+                                }
+                            }
+
+                        }
+                        }
+                    },
+                "environmental": {
+                    "questions": {
+                        "whatArea": "Площадь участка изысканий (га):",
+                        "additionalServices": "Дополнительные услуги:"
+                    },
+                    "answers": {
+                        "whatArea": {
+                            "type": "number",
+                            "data": {
+                                "min": 0,
+                                "max": 100,
+                                "step": 10,
+                                "default": 0
+                            }
+                        },
+                        "additionalServices": {
+                            "type": "list",
+                            "data": {
+                                "expertize": {
+                                    "label": "Проект будет проходить экспертизу",
+                                    "type": "checkbox",
+                                    "name": "additional"
+                                },
+                                "refferenct": {
+                                    "label": "Справка о фоновых концентрациях загрязняющих веществ и климатических характеристиках",
+                                    "type": "checkbox",
+                                    "name": "additional"
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}
