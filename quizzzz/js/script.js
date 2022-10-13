@@ -7,7 +7,7 @@ async function init() {
     InsertSubmitButton("nextButton", 'Далее');
 
     let butonnext = document.querySelector(".nextButton")
-    butonnext.addEventListener("click", buttonNextClicked.bind(null, quizzJson, butonnext), { once: true });
+    butonnext.addEventListener("click", buttonNextClicked.bind(null, quizzJson, butonnext));
 
 }
 
@@ -32,10 +32,10 @@ function insertUlLi(quizzJsonAnswers, parentClassSelectorToInsert){
          let newElementLi = document.createElement('li');
          newElementUl.appendChild(newElementLi);
          let newElementInput = document.createElement('input');
-         newElementInput.value = key;
+         newElementInput.value = quizzJsonAnswers[key].value;
          newElementInput.name = quizzJsonAnswers[key].name;
          newElementInput.type = quizzJsonAnswers[key].type;
-         //newElementInput.className = quizzJson[0].answers[key].type;
+         newElementInput.className = quizzJsonAnswers[key].name;
          newElementLi.appendChild(newElementInput);
          let newElementLabel = document.createElement('label');
          newElementLi.appendChild(newElementLabel);
@@ -72,6 +72,7 @@ function insertTemplate(nextQuestion) {
             insertBlock('input','.calculator-wrapper', 'inputArea');
             let inputArea = document.querySelector('.inputArea');
             inputArea.type = nextQuestion.answers.whatArea.type;
+            inputArea.id = nextQuestion.answers.whatArea.id;
             inputArea.max = nextQuestion.answers.whatArea.data.max;
             inputArea.min = nextQuestion.answers.whatArea.data.min;
             inputArea.placeholder = nextQuestion.answers.whatArea.data.default;
@@ -82,8 +83,37 @@ function insertTemplate(nextQuestion) {
             insertUlLi(nextQuestion.answers[key].data, `.${key}answers`)
         }
     }
+    let butonnext = document.querySelector(".nextButton")
+    butonnext.remove()
+    insertBlock('input', ".calculator_buttons_container", 'send', 'Отправить');
+    let buttonsubmit = document.querySelector(".send")
+    buttonsubmit.value = 'Отправить'
+    buttonsubmit.type = 'submit'
+    buttonsubmit.addEventListener("click", calculate.bind(null, nextQuestion))
 }
 
+function calculate(nextQuestion, event) {
+    event.preventDefault();
+    let totalCost = 1
+    const koef = Number(nextQuestion.answers.whatArea.koefficient)
+    for (let key in nextQuestion.questions) {
+        if (key === 'whatArea') {
+            let area = document.querySelector('.inputArea').value
+            totalCost = koef * Number(area)
+        } else {
+            let answers = document.getElementsByName(key)
+            for (let i=0; i<answers.length; i++) {
+                if (answers[i].checked) {
+                    if (key === 'additionalServices') {
+                        totalCost += Number(answers[i].value)
+                    } else {totalCost *= Number(answers[i].value)
+                    }
+                }
+            }
+        }
+    }
+    alert('Total sum = ' + totalCost)
+}
 
 init()
 
