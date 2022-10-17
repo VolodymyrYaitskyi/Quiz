@@ -1,19 +1,27 @@
+let quizz = null;
+let currentQuestion = null;
+let usersAnswers = {};
+let questionAndAnswer = {};
+let currentAnswer = null;
+let userCounter = 1;
+
 
 async function init() {
     let response = await fetch("http://localhost:3000/questions");
-    let quizzJson = await response.json();
-    getRootQuestionQuizDOM(quizzJson[0].rootQuestion);
-    insertUlLi(quizzJson[0].answers, '.calculator-item');
-    InsertSubmitButton("nextButton", 'Далее');
+    quizz = await response.json();
 
-    let butonnext = document.querySelector(".nextButton")
-    butonnext.addEventListener("click", buttonNextClicked.bind(null, quizzJson, butonnext));
+    insertRootQuestion(quizz.question);
+    insertUlLi(quizz.answers, '.calculator-item');
+    InsertSubmitButton("nextButton");
+
+   let butonnext = document.querySelector(".nextButton")
+   butonnext.addEventListener("click", buttonNextClicked);
 
 }
 
-function getRootQuestionQuizDOM(quizzJson) {
+function insertRootQuestion(quizz) {
     insertBlock('div','.calculator-wrapper', 'calculator-item');
-    insertBlock('div','.calculator-item', 'calculator-item-title', quizzJson);
+    insertBlock('div','.calculator-item', 'calculator-item-title', quizz);
 }
 
 function insertBlock(tagname, parentClassSelectorToInsert, newBlockClassName, textElement){
@@ -45,75 +53,50 @@ function insertUlLi(quizzJsonAnswers, parentClassSelectorToInsert){
 
 function InsertSubmitButton(newBlockClassName, textElement){
     insertBlock('div', ".calculator_buttons_container", newBlockClassName);
-    insertBlock('button', `.${newBlockClassName}`, newBlockClassName,textElement);
+    let newElement = document.createElement('button');
+    newElement.className = "nextButton";
+    (document.querySelector(".nextButton")).appendChild(newElement)
+    newElement.innerHTML = 'Далее';
 }
 
-function getNextQuestions(quizzJson, variant) {
-    if (!variant) {
-        return quizzJson[0];
-    }
-    return quizzJson[0].subQuestions[variant];
-}
-
-function buttonNextClicked(quizzJson, butonnext, event) {
+function buttonNextClicked(event) {
     event.preventDefault();
-    let answer = (document.querySelector("input[type='radio']:checked")).value;
+    insertCurrentQuestion()
+
+}
+
+function insertCurrentQuestion() {
     let label = document.querySelector('.calculator-item-title')
-    label.innerHTML = quizzJson[0].answers[answer].label
-    let nextQuestion = getNextQuestions(quizzJson, answer) // quizzJson[0].subQuestions[variant]
+    let answer = (document.querySelector("input[type='radio']:checked")).value;
+    let question =  document.querySelector('.calculator-item-title').textContent
+    let currentUser = 'user'+userCounter
+
+    questionAndAnswer[question] = answer
+    usersAnswers[currentUser] = questionAndAnswer
+
+    currentQuestion = getNextQuestion(answer)
+    currentAnswer = getNextAnswers(answer)
+
+    label.innerHTML = currentQuestion
     document.querySelector('ul').remove();
-    insertTemplate(nextQuestion)
+    insertUlLi(currentAnswer, '.calculator-item')
 }
 
-function insertTemplate(nextQuestion) {
-    for (key in nextQuestion.questions) {
-        insertBlock('div','.calculator-wrapper', key, nextQuestion.questions[key]);
-        if (nextQuestion.answers[key].type === 'number') {
-            insertBlock('input','.calculator-wrapper', 'inputArea');
-            let inputArea = document.querySelector('.inputArea');
-            inputArea.type = nextQuestion.answers.whatArea.type;
-            inputArea.id = nextQuestion.answers.whatArea.id;
-            inputArea.max = nextQuestion.answers.whatArea.data.max;
-            inputArea.min = nextQuestion.answers.whatArea.data.min;
-            inputArea.placeholder = nextQuestion.answers.whatArea.data.default;
-            inputArea.step = nextQuestion.answers.whatArea.data.step;
-        }
-        else if (nextQuestion.answers[key].type === 'list') {
-            insertBlock('div',`.${key}`, `${key}answers`);
-            insertUlLi(nextQuestion.answers[key].data, `.${key}answers`)
-        }
+function getNextQuestion(variant) {
+    if (!quizz.subQuestions[variant]) {
+        userCounter += 1
+        return quizz.question;
     }
-    let butonnext = document.querySelector(".nextButton")
-    butonnext.remove()
-    insertBlock('input', ".calculator_buttons_container", 'send', 'Отправить');
-    let buttonsubmit = document.querySelector(".send")
-    buttonsubmit.value = 'Отправить'
-    buttonsubmit.type = 'submit'
-    buttonsubmit.addEventListener("click", calculate.bind(null, nextQuestion))
+    return quizz.subQuestions[variant].question;
 }
 
-function calculate(nextQuestion, event) {
-    event.preventDefault();
-    let totalCost = 1
-    const koef = Number(nextQuestion.answers.whatArea.koefficient)
-    for (let key in nextQuestion.questions) {
-        if (key === 'whatArea') {
-            let area = document.querySelector('.inputArea').value
-            totalCost = koef * Number(area)
-        } else {
-            let answers = document.getElementsByName(key)
-            for (let i=0; i<answers.length; i++) {
-                if (answers[i].checked) {
-                    if (key === 'additionalServices') {
-                        totalCost += Number(answers[i].value)
-                    } else {totalCost *= Number(answers[i].value)
-                    }
-                }
-            }
-        }
+function getNextAnswers(variant) {
+    if (!quizz.subQuestions[variant]) {
+        console.log(usersAnswers)
+        alert('Вот и всё')
+        return quizz.answers;
     }
-    alert('Total sum = ' + totalCost)
+    return quizz.subQuestions[variant].answers;
 }
 
 init()
-

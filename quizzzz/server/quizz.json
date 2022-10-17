@@ -1,166 +1,74 @@
 {
-    "questions": [
-        {
-            "rootQuestion": "ШАГ 1 Выберите виды изысканий",
-            "answers": {
-                "geological": {"label": "Геологические изыскания", "type": "radio", "name": "rootanswer", "value": "geological"},
-                "geodesics": {"label":"Геодезические изыскания", "type": "radio", "name": "rootanswer", "value": "geodesics"},
-                "environmental": {"label":"Экологические изыскания","type": "radio", "name": "rootanswer", "value": "environmental"}
-            },
-            "subQuestions": {
-                "geological": {
-                    "questions": {
-                        "whatArea": "Площадь проектируемого строения (пятно застройки), м2:",
-                        "floorsCount": "Этажность:"
-                    },
-                    "answers": {
-                        "whatArea": {
-                            "type": "number",
-                            "id": "geologicalArea",
-                            "koefficient": "100",
-                            "data": {
-                                "min": 0,
-                                "max": 400,
-                                "step": 1,
-                                "default": 0
-                            }
-                        },
-                        "floorsCount": {
-                            "type": "list",
-                            "data" : {
-                                "onetwo": {
-                                    "label": "1 - 2 этажа",
-                                    "type": "radio",
-                                    "name": "floorsCount",
-                                    "value": "2"
-                                },
-                                "three": {
-                                    "label": "3 этажа",
-                                    "type": "radio",
-                                    "name": "floorsCount",
-                                    "value": "3"
-                                },
-                                "four": {
-                                    "label": "4 этажа",
-                                    "type": "radio",
-                                    "name": "floorsCount",
-                                    "value": "4"
-                                },
-                                "zero": {
-                                    "label": "+ Подвал",
-                                    "type": "checkbox",
-                                    "name": "floorsCount",
-                                    "value": "0.5"
-                                }
-                            }
-                        }
-                    }
-                },
-                "geodesics": {
-                    "questions": {
-                        "whatArea": "Площадь участка изысканий (га):",
-                        "locationType": "Тип местности:",
-                        "additionalServices": "Дополнительные услуги:"
-                    },
-                    "answers": {
-                        "whatArea": {
-                            "type": "number",
-                            "id": "geodesicsArea",
-                            "koefficient": "1000",
-                            "data": {
-                                "min": 0,
-                                "max": 1000,
-                                "step": 1,
-                                "default": 0
-                                }
-                        },
-                        "locationType": {
-                            "type": "list",
-                            "data": {
-                                "private": {
-                                    "label": "Частный приусадебный участок",
-                                    "type": "radio",
-                                    "name": "locationType",
-                                    "value": "2"
-                                },
-                                "field": {
-                                    "label": "Поле",
-                                    "type": "radio",
-                                    "name": "locationType",
-                                    "value": "3"
-                                },
-                                "city": {
-                                    "label": "Городская застройка",
-                                    "type": "radio",
-                                    "name": "locationType",
-                                    "value": "4"
-                                },
-                                "industrial": {
-                                    "label": "Промзона",
-                                    "type": "radio",
-                                    "name": "locationType",
-                                    "value": "5"
-                                }
-                            }
-                        },
-                        "additionalServices": {
-                            "type": "list",
-                            "data": {
-                                "techreview": {
-                                    "label": "Разработка технического отчета",
-                                    "type": "checkbox",
-                                    "name": "additionalServices",
-                                    "value": "5000"
-                                },
-                                "agreedment": {
-                                    "label": "Согласование топосъемки с эксплуатирующими организациями",
-                                    "type": "checkbox",
-                                    "name": "additionalServices",
-                                    "value": "7500"
-                                }
-                            }
+  "questions": {
+    "question": "Вы женаты?",
+    "answers": {
+      "answer1": {
+        "label": "Нет",
+        "type": "radio",
+        "name": "answer",
+        "value": "single"
+      },
+      "answer2": {
+        "label": "Да",
+        "type": "radio",
+        "name": "answer",
+        "value": "married"
+      }
+    }, "subQuestions": {
+          "single": {
+              "question": "Вы планируете пожениться в следующем году?",
+              "answers": {
+                  "answer1": {
+                      "label": "Да",
+                      "type": "radio",
+                      "name": "answer",
+                      "value": "plan to get married"
+                  },
+                  "answer2": {
+                      "label": "Нет",
+                      "type": "radio",
+                      "name": "answer",
+                      "value": "don't plan to get married"
+                  }
+              }
+          },
+          "married": {
+              "question": "Как долго вы женаты?",
+              "answers": {
+                  "answer1": {
+                      "label": "Меньше года",
+                      "type": "radio",
+                      "name": "answer",
+                      "value": "Less than a year"
+                  },
+                  "answer2": {
+                      "label": "Больше года",
+                      "type": "radio",
+                      "name": "answer",
+                      "value": "More than a year"
+                  }
+              }
+          },
+          "More than a year": {
+              "question": "Вы отпраздновали годовщину?",
+              "answers": {
+                  "answer1": {
+                      "label": "Да",
+                      "type": "radio",
+                      "name": "answer",
+                      "value": "celebrated an anniversary"
+                  },
+                  "answer2": {
+                      "label": "Нет",
+                      "type": "radio",
+                      "name": "answer",
+                      "value": "didnt celebrated an anniversary"
+                  }
+              }
+          }
+      }
+  }
 
-                        }
-                        }
-                    },
-                "environmental": {
-                    "questions": {
-                        "whatArea": "Площадь участка изысканий (га):",
-                        "additionalServices": "Дополнительные услуги:"
-                    },
-                    "answers": {
-                        "whatArea": {
-                            "type": "number",
-                            "id": "environmentalArea",
-                            "koefficient": "500",
-                            "data": {
-                                "min": 0,
-                                "max": 100,
-                                "step": 10,
-                                "default": 0
-                            }
-                        },
-                        "additionalServices": {
-                            "type": "list",
-                            "data": {
-                                "expertize": {
-                                    "label": "Проект будет проходить экспертизу",
-                                    "type": "checkbox",
-                                    "name": "additionalServices",
-                                    "value": "15000"
-                                },
-                                "refferenct": {
-                                    "label": "Справка о фоновых концентрациях загрязняющих веществ и климатических характеристиках",
-                                    "type": "checkbox",
-                                    "name": "additionalServices",
-                                    "value": "10000"
-                                }
-                            }
 
-                        }
-                    }
-                }
-            }
-        }
-    ]
 }
+
