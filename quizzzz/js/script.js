@@ -1,10 +1,8 @@
 let quizz = null;
 let currentQuestion = null;
 let usersAnswers = {};
-let questionAndAnswer = {};
 let currentAnswer = null;
-let userCounter = 1;
-
+let checkedAnswer = null;
 
 async function init() {
     let response = await fetch("http://localhost:3000/questions");
@@ -43,7 +41,8 @@ function insertUlLi(quizzJsonAnswers, parentClassSelectorToInsert){
          newElementInput.value = quizzJsonAnswers[key].value;
          newElementInput.name = quizzJsonAnswers[key].name;
          newElementInput.type = quizzJsonAnswers[key].type;
-         newElementInput.className = quizzJsonAnswers[key].name;
+         newElementInput.checked = quizzJsonAnswers[key].checked;
+         newElementInput.className = 'answers' //quizzJsonAnswers[key].name;
          newElementLi.appendChild(newElementInput);
          let newElementLabel = document.createElement('label');
          newElementLi.appendChild(newElementLabel);
@@ -61,21 +60,25 @@ function InsertSubmitButton(newBlockClassName, textElement){
 
 function buttonNextClicked(event) {
     event.preventDefault();
+
     insertCurrentQuestion()
 
 }
 
 function insertCurrentQuestion() {
     let label = document.querySelector('.calculator-item-title')
-    let answer = (document.querySelector("input[type='radio']:checked")).value;
-    let question =  document.querySelector('.calculator-item-title').textContent
-    let currentUser = 'user'+userCounter
 
-    questionAndAnswer[question] = answer
-    usersAnswers[currentUser] = questionAndAnswer
+    let allAnswers = document.querySelectorAll('.answers')
+    for (let i = 0; i < allAnswers.length; i++){
+        if (allAnswers[i].checked) {
+            checkedAnswer = allAnswers[i].value
+            usersAnswers[allAnswers[i].name] = allAnswers[i].value
+        }
+    }
 
-    currentQuestion = getNextQuestion(answer)
-    currentAnswer = getNextAnswers(answer)
+
+    currentQuestion = getNextQuestion(checkedAnswer)
+    currentAnswer = getNextAnswers(checkedAnswer)
 
     label.innerHTML = currentQuestion
     document.querySelector('ul').remove();
@@ -84,7 +87,6 @@ function insertCurrentQuestion() {
 
 function getNextQuestion(variant) {
     if (!quizz.subQuestions[variant]) {
-        userCounter += 1
         return quizz.question;
     }
     return quizz.subQuestions[variant].question;
@@ -93,7 +95,8 @@ function getNextQuestion(variant) {
 function getNextAnswers(variant) {
     if (!quizz.subQuestions[variant]) {
         console.log(usersAnswers)
-        alert('Вот и всё')
+        alert('That`s it, thank you bro')
+        usersAnswers = {};
         return quizz.answers;
     }
     return quizz.subQuestions[variant].answers;

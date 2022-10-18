@@ -1,69 +1,84 @@
 {
   "questions": {
-    "question": "Вы женаты?",
+    "question": "Are you married?",
     "answers": {
       "answer1": {
-        "label": "Нет",
+        "label": "No",
         "type": "radio",
-        "name": "answer",
-        "value": "single"
+        "name": "Are you married?",
+        "value": "single",
+        "checked": "unchecked"
       },
       "answer2": {
-        "label": "Да",
+        "label": "Yes",
         "type": "radio",
-        "name": "answer",
-        "value": "married"
+        "name": "Are you married?",
+        "value": "married",
+        "checked": "checked"
       }
     }, "subQuestions": {
           "single": {
-              "question": "Вы планируете пожениться в следующем году?",
+              "question": "Are you planning to get married next year?",
               "answers": {
                   "answer1": {
-                      "label": "Да",
+                      "label": "Yes",
                       "type": "radio",
-                      "name": "answer",
-                      "value": "plan to get married"
+                      "name": "Are you planning to get married next year?",
+                      "value": "plan to get married",
+                      "checked": "checked"
                   },
                   "answer2": {
-                      "label": "Нет",
+                      "label": "No",
                       "type": "radio",
-                      "name": "answer",
-                      "value": "don't plan to get married"
+                      "name": "Are you planning to get married next year?",
+                      "value": "don't plan to get married",
+                    "checked": "unchecked"
                   }
               }
           },
           "married": {
-              "question": "Как долго вы женаты?",
+              "question": "How long have you been married?",
               "answers": {
                   "answer1": {
-                      "label": "Меньше года",
+                      "label": "Less than a year",
                       "type": "radio",
-                      "name": "answer",
-                      "value": "Less than a year"
+                      "name": "How long have you been married?",
+                      "value": "Less than a year",
+                      "checked": "checked"
                   },
                   "answer2": {
-                      "label": "Больше года",
+                      "label": "More than a year",
                       "type": "radio",
-                      "name": "answer",
-                      "value": "More than a year"
+                      "name": "How long have you been married?",
+                      "value": "More than a year",
+                      "checked": "unchecked"
                   }
               }
           },
           "More than a year": {
-              "question": "Вы отпраздновали годовщину?",
+              "question": "Did you celebrate an anniversary?",
               "answers": {
                   "answer1": {
-                      "label": "Да",
+                      "label": "Yes",
                       "type": "radio",
-                      "name": "answer",
-                      "value": "celebrated an anniversary"
+                      "name": "Did you celebrate an anniversary?",
+                      "value": "celebrated an anniversary",
+                      "checked": "checked"
                   },
                   "answer2": {
-                      "label": "Нет",
+                      "label": "No",
                       "type": "radio",
-                      "name": "answer",
-                      "value": "didnt celebrated an anniversary"
-                  }
+                      "name": "Did you celebrate an anniversary?",
+                      "value": "didnt celebrated an anniversary",
+                      "checked": "unchecked"
+                  },
+                "answer3": {
+                  "label": "Not yet, but we have planned",
+                  "type": "checkbox",
+                  "name": "Do you have plans for celebrating anniversary?",
+                  "value": "have a plan to celebrate anniversary",
+                  "checked": ""
+                }
               }
           }
       }
