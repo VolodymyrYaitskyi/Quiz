@@ -16,74 +16,77 @@
         "value": "married",
         "checked": "checked"
       }
-    }, "subQuestions": {
-          "single": {
-              "question": "Are you planning to get married next year?",
-              "answers": {
-                  "answer1": {
-                      "label": "Yes",
-                      "type": "radio",
-                      "name": "Are you planning to get married next year?",
-                      "value": "plan to get married",
-                      "checked": "checked"
-                  },
-                  "answer2": {
-                      "label": "No",
-                      "type": "radio",
-                      "name": "Are you planning to get married next year?",
-                      "value": "don't plan to get married",
-                    "checked": "unchecked"
-                  }
-              }
+    },
+    "subQuestions": {
+      "single": {
+        "question": "Are you planning to get married next year?",
+        "answers": {
+          "answer1": {
+            "label": "Yes",
+            "type": "radio",
+            "name": "Are you planning to get married next year?",
+            "value": "plan to get married",
+            "checked": "checked"
           },
-          "married": {
-              "question": "How long have you been married?",
-              "answers": {
-                  "answer1": {
-                      "label": "Less than a year",
-                      "type": "radio",
-                      "name": "How long have you been married?",
-                      "value": "Less than a year",
-                      "checked": "checked"
-                  },
-                  "answer2": {
-                      "label": "More than a year",
-                      "type": "radio",
-                      "name": "How long have you been married?",
-                      "value": "More than a year",
-                      "checked": "unchecked"
-                  }
-              }
-          },
-          "More than a year": {
-              "question": "Did you celebrate an anniversary?",
-              "answers": {
-                  "answer1": {
-                      "label": "Yes",
-                      "type": "radio",
-                      "name": "Did you celebrate an anniversary?",
-                      "value": "celebrated an anniversary",
-                      "checked": "checked"
-                  },
-                  "answer2": {
-                      "label": "No",
-                      "type": "radio",
-                      "name": "Did you celebrate an anniversary?",
-                      "value": "didnt celebrated an anniversary",
-                      "checked": "unchecked"
-                  },
-                "answer3": {
-                  "label": "Not yet, but we have planned",
-                  "type": "checkbox",
-                  "name": "Do you have plans for celebrating anniversary?",
-                  "value": "have a plan to celebrate anniversary",
-                  "checked": ""
-                }
-              }
+          "answer2": {
+            "label": "No",
+            "type": "radio",
+            "name": "Are you planning to get married next year?",
+            "value": "don't plan to get married",
+            "checked": "unchecked"
           }
+        }
+      },
+      "married": {
+        "question": "How long have you been married?",
+        "answers": {
+          "answer1": {
+            "label": "Less than a year",
+            "type": "radio",
+            "name": "How long have you been married?",
+            "value": "Less than a year",
+            "checked": "checked"
+          },
+          "answer2": {
+            "label": "More than a year",
+            "type": "radio",
+            "name": "How long have you been married?",
+            "value": "More than a year",
+            "checked": "unchecked"
+          }
+        }
+      },
+      "More than a year": {
+        "question": "Did you celebrate an anniversary?",
+        "answers": {
+          "answer1": {
+            "label": "Yes",
+            "type": "radio",
+            "name": "Did you celebrate an anniversary?",
+            "value": "celebrated an anniversary",
+            "checked": "checked"
+          },
+          "answer2": {
+            "label": "No",
+            "type": "radio",
+            "name": "Did you celebrate an anniversary?",
+            "value": "didnt celebrated an anniversary",
+            "checked": "unchecked"
+          },
+          "answer3": {
+            "label": "Not yet, but we have planned",
+            "type": "checkbox",
+            "name": "Do you have plans for celebrating anniversary?",
+            "value": "have a plan to celebrate anniversary",
+            "checked": ""
+          }
+        }
       }
+    }
+  },
+  "answers": {
+    "Are you married?": "married",
+    "How long have you been married?": "More than a year",
+    "Did you celebrate an anniversary?": "didnt celebrated an anniversary"
   }
-
-
 }
-

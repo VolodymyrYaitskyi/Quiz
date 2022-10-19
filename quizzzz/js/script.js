@@ -3,26 +3,27 @@ let currentQuestion = null;
 let usersAnswers = {};
 let currentAnswer = null;
 let checkedAnswer = null;
+let requests = new Requests()
 
 async function init() {
-    let response = await fetch("http://localhost:3000/questions");
-    quizz = await response.json();
+
+    quizz = await requests.getQuizz()
 
     insertRootQuestion(quizz.question);
     insertUlLi(quizz.answers, '.calculator-item');
     InsertSubmitButton("nextButton");
 
-   let butonnext = document.querySelector(".nextButton")
-   butonnext.addEventListener("click", buttonNextClicked);
+    let butonnext = document.querySelector(".nextButton")
+    butonnext.addEventListener("click", buttonNextClicked);
 
 }
 
 function insertRootQuestion(quizz) {
-    insertBlock('div','.calculator-wrapper', 'calculator-item');
-    insertBlock('div','.calculator-item', 'calculator-item-title', quizz);
+    insertBlock('div', '.calculator-wrapper', 'calculator-item');
+    insertBlock('div', '.calculator-item', 'calculator-item-title', quizz);
 }
 
-function insertBlock(tagname, parentClassSelectorToInsert, newBlockClassName, textElement){
+function insertBlock(tagname, parentClassSelectorToInsert, newBlockClassName, textElement) {
     let newElement = document.createElement(tagname);
     newElement.className = newBlockClassName;
     (document.querySelector(parentClassSelectorToInsert)).appendChild(newElement)
@@ -31,26 +32,26 @@ function insertBlock(tagname, parentClassSelectorToInsert, newBlockClassName, te
     }
 }
 
-function insertUlLi(quizzJsonAnswers, parentClassSelectorToInsert){
+function insertUlLi(quizzJsonAnswers, parentClassSelectorToInsert) {
     let newElementUl = document.createElement('ul');
     (document.querySelector(parentClassSelectorToInsert)).appendChild(newElementUl)
-     for (let key in quizzJsonAnswers) {
-         let newElementLi = document.createElement('li');
-         newElementUl.appendChild(newElementLi);
-         let newElementInput = document.createElement('input');
-         newElementInput.value = quizzJsonAnswers[key].value;
-         newElementInput.name = quizzJsonAnswers[key].name;
-         newElementInput.type = quizzJsonAnswers[key].type;
-         newElementInput.checked = quizzJsonAnswers[key].checked;
-         newElementInput.className = 'answers' //quizzJsonAnswers[key].name;
-         newElementLi.appendChild(newElementInput);
-         let newElementLabel = document.createElement('label');
-         newElementLi.appendChild(newElementLabel);
-         newElementLabel.innerHTML = quizzJsonAnswers[key].label;
-     }
+    for (let key in quizzJsonAnswers) {
+        let newElementLi = document.createElement('li');
+        newElementUl.appendChild(newElementLi);
+        let newElementInput = document.createElement('input');
+        newElementInput.value = quizzJsonAnswers[key].value;
+        newElementInput.name = quizzJsonAnswers[key].name;
+        newElementInput.type = quizzJsonAnswers[key].type;
+        newElementInput.checked = quizzJsonAnswers[key].checked;
+        newElementInput.className = 'answers' //quizzJsonAnswers[key].name;
+        newElementLi.appendChild(newElementInput);
+        let newElementLabel = document.createElement('label');
+        newElementLi.appendChild(newElementLabel);
+        newElementLabel.innerHTML = quizzJsonAnswers[key].label;
+    }
 }
 
-function InsertSubmitButton(newBlockClassName, textElement){
+function InsertSubmitButton(newBlockClassName, textElement) {
     insertBlock('div', ".calculator_buttons_container", newBlockClassName);
     let newElement = document.createElement('button');
     newElement.className = "nextButton";
@@ -69,13 +70,12 @@ function insertCurrentQuestion() {
     let label = document.querySelector('.calculator-item-title')
 
     let allAnswers = document.querySelectorAll('.answers')
-    for (let i = 0; i < allAnswers.length; i++){
+    for (let i = 0; i < allAnswers.length; i++) {
         if (allAnswers[i].checked) {
             checkedAnswer = allAnswers[i].value
             usersAnswers[allAnswers[i].name] = allAnswers[i].value
         }
     }
-
 
     currentQuestion = getNextQuestion(checkedAnswer)
     currentAnswer = getNextAnswers(checkedAnswer)
@@ -94,8 +94,8 @@ function getNextQuestion(variant) {
 
 function getNextAnswers(variant) {
     if (!quizz.subQuestions[variant]) {
-        console.log(usersAnswers)
         alert('That`s it, thank you bro')
+        requests.postAnswers(usersAnswers)
         usersAnswers = {};
         return quizz.answers;
     }
