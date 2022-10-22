@@ -85,8 +85,7 @@
     }
   },
   "answers": {
-    "Are you married?": "married",
-    "How long have you been married?": "More than a year",
-    "Did you celebrate an anniversary?": "didnt celebrated an anniversary"
+    "Are you married?": "single",
+    "Are you planning to get married next year?": "don't plan to get married"
   }
 }

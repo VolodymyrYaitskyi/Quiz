@@ -3,11 +3,11 @@ let currentQuestion = null;
 let usersAnswers = {};
 let currentAnswer = null;
 let checkedAnswer = null;
-let requests = new Requests()
+let quizzRepository = new QuizzRepository()
 
 async function init() {
 
-    quizz = await requests.getQuizz()
+    quizz = await quizzRepository.getQuizz()
 
     insertRootQuestion(quizz.question);
     insertUlLi(quizz.answers, '.calculator-item');
@@ -95,7 +95,7 @@ function getNextQuestion(variant) {
 function getNextAnswers(variant) {
     if (!quizz.subQuestions[variant]) {
         alert('That`s it, thank you bro')
-        requests.postAnswers(usersAnswers)
+        quizzRepository.postAnswers(usersAnswers)
         usersAnswers = {};
         return quizz.answers;
     }

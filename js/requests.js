@@ -1,4 +1,4 @@
-class Requests {
+class QuizzRepository {
     async postAnswers(answers) {
         await fetch("http://localhost:3000/answers", {
             method: 'POST', headers: {
